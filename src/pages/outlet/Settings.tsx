@@ -69,7 +69,8 @@ export const Settings: React.FC = () => {
                 onChange={(e) => setPrintSettings({ ...printSettings, printMode: e.target.value })}
                 className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               >
-                <option value="receipt">Receipt (58mm Thermal)</option>
+                <option value="receipt_58">Receipt (58mm Thermal)</option>
+                <option value="receipt_80">Receipt (80mm Thermal)</option>
                 <option value="bill">Bill (A4)</option>
                 <option value="invoice">Invoice (A4)</option>
               </select>
