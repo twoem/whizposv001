@@ -7,6 +7,7 @@ import { Inventory as ServerInventory } from '../pages/server/Inventory';
 import { Suppliers } from '../pages/server/Suppliers';
 import { Transfers } from '../pages/server/Transfers';
 import { Outlets } from '../pages/server/Outlets';
+import { OutletDetail } from '../pages/server/OutletDetail';
 import { Users } from '../pages/server/Users';
 import { Reports } from '../pages/server/Reports';
 import { Expenses as ServerExpenses } from '../pages/server/Expenses';
@@ -49,6 +50,7 @@ export const Router = () => {
           <Route path="/server/suppliers" element={<ProtectedRoute><Suppliers /></ProtectedRoute>} />
           <Route path="/server/transfers" element={<ProtectedRoute><Transfers /></ProtectedRoute>} />
           <Route path="/server/outlets" element={<ProtectedRoute><Outlets /></ProtectedRoute>} />
+          <Route path="/server/outlet/:id" element={<ProtectedRoute><OutletDetail /></ProtectedRoute>} />
           <Route path="/server/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
           <Route path="/server/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
           <Route path="/server/expenses" element={<ProtectedRoute><ServerExpenses /></ProtectedRoute>} />
