@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Zap } from 'lucide-react';
-import { Badge } from '../ui/Badge';
+import { Zap, Bell, Calendar, Clock, Wifi, WifiOff } from 'lucide-react';
 import { useSyncStore } from '../../store/syncStore';
+import { useAuthStore } from '../../store/authStore';
 
 interface TopbarProps {
   title: string;
@@ -9,70 +9,90 @@ interface TopbarProps {
 }
 
 export const Topbar: React.FC<TopbarProps> = ({ title, variant = 'outlet' }) => {
-  const [time, setTime] = useState<string>('');
+  const [time, setTime] = useState('');
+  const [date, setDate] = useState('');
   const [isOnline, setIsOnline] = useState(true);
   const { queue } = useSyncStore();
+  const { role } = useAuthStore();
   const pendingCount = queue.filter(item => item.status === 'pending').length;
 
   useEffect(() => {
-    const updateTime = () => {
+    const update = () => {
       const now = new Date();
       setTime(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+      setDate(now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }));
     };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
+    const on = () => setIsOnline(true);
+    const off = () => setIsOnline(false);
+    window.addEventListener('online', on);
+    window.addEventListener('offline', off);
+    return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); };
   }, []);
 
   return (
-    <div className="h-20 bg-white border-b border-gray-200 ml-64 flex items-center justify-between px-8 shadow-sm transition-all duration-300">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
-        <p className="text-xs text-gray-600 mt-0.5 font-medium">Welcome to Whizpoint Solutions</p>
+    <div className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6 sticky top-0 z-20" style={{ boxShadow: '0 1px 3px 0 rgba(0,0,0,0.04)' }}>
+      {/* Left: Title */}
+      <div className="flex items-center gap-3 min-w-0">
+        <div className="min-w-0">
+          <h2 className="text-lg font-bold text-gray-900 leading-tight truncate">{title}</h2>
+          <div className="flex items-center gap-1.5 mt-0.5">
+            <Calendar size={11} className="text-gray-400 flex-shrink-0" />
+            <span className="text-xs text-gray-400 font-medium">{date}</span>
+          </div>
+        </div>
       </div>
 
-      <div className="flex items-center gap-6">
+      {/* Right: Controls */}
+      <div className="flex items-center gap-2 flex-shrink-0">
+        {/* Connection status — outlet only */}
         {variant === 'outlet' && (
-          <>
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-lg border font-semibold transition-all duration-300 ${
-              isOnline
-                ? 'bg-green-50 border-green-200 text-green-900'
-                : 'bg-red-50 border-red-200 text-red-900'
-            }`}>
-              {isOnline ? (
-                <>
-                  <div className="w-2 h-2 rounded-full bg-green-600 animate-pulse"></div>
-                  <span className="text-sm">Online</span>
-                </>
-              ) : (
-                <>
-                  <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></div>
-                  <span className="text-sm">Offline</span>
-                </>
-              )}
-            </div>
-
-            {pendingCount > 0 && (
-              <Badge variant="warning">
-                <Zap size={14} className="mr-1" />
-                {pendingCount} pending
-              </Badge>
-            )}
-          </>
+          <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-300 ${
+            isOnline
+              ? 'bg-emerald-50 border-emerald-100 text-emerald-700'
+              : 'bg-red-50 border-red-100 text-red-700'
+          }`}>
+            {isOnline
+              ? <><div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /><Wifi size={12} />Online</>
+              : <><div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" /><WifiOff size={12} />Offline</>
+            }
+          </div>
         )}
 
-        <div className="text-sm text-gray-700 font-mono bg-gray-100 px-4 py-2 rounded-lg border border-gray-300 font-semibold">{time}</div>
+        {/* Pending sync badge */}
+        {variant === 'outlet' && pendingCount > 0 && (
+          <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-50 border border-amber-100 text-xs font-semibold text-amber-700">
+            <Zap size={11} />
+            {pendingCount}
+          </div>
+        )}
+
+        {/* Role chip */}
+        {role && (
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-100 text-xs font-semibold text-blue-700 capitalize">
+            {role}
+          </div>
+        )}
+
+        {/* Notification bell */}
+        <button className="relative p-2 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors duration-200">
+          <Bell size={16} />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-red-500" />
+        </button>
+
+        {/* Divider */}
+        <div className="w-px h-6 bg-gray-200 mx-1" />
+
+        {/* Clock */}
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200">
+          <Clock size={12} className="text-gray-400" />
+          <span className="text-xs font-mono font-semibold text-gray-700 tabular-nums">{time}</span>
+        </div>
       </div>
     </div>
   );
