@@ -6,7 +6,7 @@ import { Input } from '../../components/ui/Input';
 import { Table, TableHead, TableBody, TableRow, TableCell } from '../../components/ui/Table';
 import { ServerLayout } from '../../layouts/ServerLayout';
 import { Badge } from '../../components/ui/Badge';
-import { Plus } from 'lucide-react';
+import { Plus, DollarSign, Tag } from 'lucide-react';
 import { EXPENSES } from '../../shared/mockData';
 import { CURRENCY } from '../../shared/constants';
 
@@ -32,14 +32,24 @@ export const Expenses: React.FC = () => {
   return (
     <ServerLayout title="Expense Management">
       <div className="space-y-6">
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="p-6">
-            <p className="text-slate-400 text-sm mb-2">Total Expenses</p>
-            <p className="text-4xl font-bold text-white">{CURRENCY} {totalExpenses.toLocaleString()}</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-lg bg-red-100">
+                <DollarSign size={20} className="text-red-600" />
+              </div>
+              <p className="text-gray-500 text-sm font-medium">Total Expenses</p>
+            </div>
+            <p className="text-4xl font-bold text-gray-900">{CURRENCY} {totalExpenses.toLocaleString()}</p>
           </Card>
           <Card className="p-6">
-            <p className="text-slate-400 text-sm mb-2">Categories</p>
-            <p className="text-4xl font-bold text-teal-400">{categories.length}</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-lg bg-amber-100">
+                <Tag size={20} className="text-amber-600" />
+              </div>
+              <p className="text-gray-500 text-sm font-medium">Categories</p>
+            </div>
+            <p className="text-4xl font-bold text-gray-900">{categories.length}</p>
           </Card>
         </div>
 
@@ -50,9 +60,8 @@ export const Expenses: React.FC = () => {
           </Button>
         </div>
 
-        {/* Expenses by Category */}
         <Card className="p-6">
-          <h3 className="text-lg font-bold text-white mb-6">Expenses by Category</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-6">Expenses by Category</h3>
           <Table>
             <TableHead>
               <TableRow>
@@ -64,9 +73,9 @@ export const Expenses: React.FC = () => {
             <TableBody>
               {expensesByCategory.map((item) => (
                 <TableRow key={item.category}>
-                  <TableCell className="font-semibold text-white">{item.category}</TableCell>
-                  <TableCell className="text-slate-400">{item.count} expense(s)</TableCell>
-                  <TableCell className="text-white font-semibold">
+                  <TableCell className="font-semibold text-gray-900">{item.category}</TableCell>
+                  <TableCell className="text-gray-600">{item.count} expense(s)</TableCell>
+                  <TableCell className="text-gray-900 font-semibold">
                     {CURRENCY} {item.total.toLocaleString()}
                   </TableCell>
                 </TableRow>
@@ -75,9 +84,8 @@ export const Expenses: React.FC = () => {
           </Table>
         </Card>
 
-        {/* Recent Expenses */}
         <Card className="p-6">
-          <h3 className="text-lg font-bold text-white mb-6">Recent Expenses</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-6">Recent Expenses</h3>
           <Table>
             <TableHead>
               <TableRow>
@@ -91,17 +99,17 @@ export const Expenses: React.FC = () => {
             <TableBody>
               {EXPENSES.map((expense) => (
                 <TableRow key={expense.id}>
-                  <TableCell className="text-slate-400 text-sm">
+                  <TableCell className="text-gray-500 text-sm">
                     {new Date(expense.createdAt).toLocaleDateString()}
                   </TableCell>
                   <TableCell>
                     <Badge variant="info">{expense.category}</Badge>
                   </TableCell>
-                  <TableCell className="text-slate-300">{expense.description}</TableCell>
-                  <TableCell className="text-white font-semibold">
+                  <TableCell className="text-gray-700">{expense.description}</TableCell>
+                  <TableCell className="text-gray-900 font-semibold">
                     {CURRENCY} {expense.amount.toLocaleString()}
                   </TableCell>
-                  <TableCell className="text-slate-400">{expense.createdBy}</TableCell>
+                  <TableCell className="text-gray-600">{expense.createdBy}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

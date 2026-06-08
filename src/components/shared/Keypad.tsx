@@ -28,7 +28,7 @@ export const Keypad: React.FC<KeypadProps> = ({ onInput, onDelete, onSubmit, dis
   };
 
   return (
-    <div className={`grid grid-cols-3 gap-3 p-6 bg-white border border-gray-200 rounded-2xl shadow-lg ${shake ? 'animate-shake' : ''}`}>
+    <div className={`grid grid-cols-3 gap-3 p-6 bg-white border border-gray-300 rounded-2xl shadow-xl transition-all duration-300 ${shake ? 'animate-shake' : ''}`}>
       {keys.map((row, rowIdx) => (
         <React.Fragment key={rowIdx}>
           {row.map((key) => (
@@ -37,11 +37,11 @@ export const Keypad: React.FC<KeypadProps> = ({ onInput, onDelete, onSubmit, dis
               onClick={() => handleKeyPress(key)}
               disabled={disabled}
               className={`
-                py-4 rounded-xl font-bold text-lg transition-all duration-150
+                py-4 rounded-xl font-bold text-lg transition-all duration-200
                 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
                 ${key === 'clear' || key === 'backspace'
-                  ? 'col-span-1 bg-red-500 hover:bg-red-600 text-white'
-                  : 'bg-gray-100 hover:bg-gray-200 text-gray-900 border border-gray-300'
+                  ? 'col-span-1 bg-red-600 hover:bg-red-700 text-white shadow-md hover:shadow-lg font-bold'
+                  : 'bg-gray-100 hover:bg-gray-200 text-gray-900 border-2 border-gray-300 font-bold'
                 }
               `}
             >
@@ -53,7 +53,7 @@ export const Keypad: React.FC<KeypadProps> = ({ onInput, onDelete, onSubmit, dis
       <button
         onClick={onSubmit}
         disabled={disabled}
-        className="col-span-3 py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white transition-all duration-150 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="col-span-3 py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
       >
         VERIFY ACCESS
       </button>

@@ -6,7 +6,7 @@ import { Input } from '../../components/ui/Input';
 import { OutletLayout } from '../../layouts/OutletLayout';
 import { SHIFT_RECORDS, OUTLETS } from '../../shared/mockData';
 import { CURRENCY } from '../../shared/constants';
-import { Plus, Lock } from 'lucide-react';
+import { Plus, Lock, Clock, DollarSign } from 'lucide-react';
 
 export const Shift: React.FC = () => {
   const [outletName] = useState(OUTLETS[0].name);
@@ -25,29 +25,35 @@ export const Shift: React.FC = () => {
 
   return (
     <OutletLayout title={`Shift Management - ${outletName}`}>
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Current Shift */}
         <Card className="p-8">
-          <h3 className="text-2xl font-bold text-white mb-6">Current Shift</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Current Shift</h3>
 
           {currentShift.status === 'open' ? (
             <div className="space-y-6">
-              <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                 <Badge variant="success">Shift Open</Badge>
-                <p className="text-slate-300 mt-2 text-sm">Started: {new Date(currentShift.openedAt).toLocaleTimeString()}</p>
+                <p className="text-gray-700 mt-2 text-sm font-medium">Started: {new Date(currentShift.openedAt).toLocaleTimeString()}</p>
               </div>
 
               <div className="space-y-4">
-                <div className="flex justify-between items-center p-4 bg-slate-700/50 rounded-lg">
-                  <span className="text-slate-300">Opening Float:</span>
-                  <span className="text-2xl font-bold text-teal-400">
+                <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <span className="text-gray-600 flex items-center gap-2">
+                    <DollarSign size={18} />
+                    Opening Float:
+                  </span>
+                  <span className="text-2xl font-bold text-blue-600">
                     {CURRENCY} {currentShift.openingFloat.toLocaleString()}
                   </span>
                 </div>
 
-                <div className="flex justify-between items-center p-4 bg-slate-700/50 rounded-lg">
-                  <span className="text-slate-300">Current Balance:</span>
-                  <span className="text-2xl font-bold text-white">
+                <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <span className="text-gray-600 flex items-center gap-2">
+                    <DollarSign size={18} />
+                    Current Balance:
+                  </span>
+                  <span className="text-2xl font-bold text-gray-900">
                     {CURRENCY} {(currentShift.openingFloat + 5450).toLocaleString()}
                   </span>
                 </div>
@@ -65,7 +71,7 @@ export const Shift: React.FC = () => {
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <Badge variant="info">No Active Shift</Badge>
               </div>
 
@@ -111,22 +117,28 @@ export const Shift: React.FC = () => {
 
         {/* Shift History */}
         <Card className="p-8">
-          <h3 className="text-2xl font-bold text-white mb-6">Shift History</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Shift History</h3>
           <div className="space-y-4">
             {SHIFT_RECORDS.map((shift) => (
-              <div key={shift.id} className="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+              <div key={shift.id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="font-semibold text-white">{shift.cashier}</span>
+                  <span className="font-semibold text-gray-900">{shift.cashier}</span>
                   <Badge variant={shift.status === 'open' ? 'success' : 'info'}>
                     {shift.status.toUpperCase()}
                   </Badge>
                 </div>
-                <div className="text-sm text-slate-400 space-y-1">
-                  <p>Open: {new Date(shift.openedAt).toLocaleTimeString()}</p>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p className="flex items-center gap-2">
+                    <Clock size={14} />
+                    Open: {new Date(shift.openedAt).toLocaleTimeString()}
+                  </p>
                   {shift.closedAt && (
-                    <p>Closed: {new Date(shift.closedAt).toLocaleTimeString()}</p>
+                    <p className="flex items-center gap-2">
+                      <Clock size={14} />
+                      Closed: {new Date(shift.closedAt).toLocaleTimeString()}
+                    </p>
                   )}
-                  <p className="text-teal-400 pt-2">
+                  <p className="text-blue-600 pt-2 font-semibold">
                     Opening: {CURRENCY} {shift.openingFloat.toLocaleString()}
                     {shift.closingBalance > 0 && ` → Closing: ${CURRENCY} ${shift.closingBalance.toLocaleString()}`}
                   </p>

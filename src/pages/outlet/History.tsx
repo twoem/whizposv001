@@ -5,7 +5,7 @@ import { Table, TableHead, TableBody, TableRow, TableCell } from '../../componen
 import { OutletLayout } from '../../layouts/OutletLayout';
 import { TRANSACTIONS, OUTLETS } from '../../shared/mockData';
 import { CURRENCY } from '../../shared/constants';
-import { Printer, Download } from 'lucide-react';
+import { Printer, Download, Receipt, DollarSign, Calendar } from 'lucide-react';
 
 export const History: React.FC = () => {
   const [outletName] = React.useState(OUTLETS[0].name);
@@ -23,26 +23,41 @@ export const History: React.FC = () => {
     <OutletLayout title={`Receipt History - ${outletName}`}>
       <div className="space-y-6">
         {/* Summary */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="p-6">
-            <p className="text-slate-400 text-sm mb-2">Total Receipts</p>
-            <p className="text-3xl font-bold text-white">{localTransactions.length}</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-lg bg-blue-100">
+                <Receipt size={20} className="text-blue-600" />
+              </div>
+              <p className="text-gray-500 text-sm font-medium">Total Receipts</p>
+            </div>
+            <p className="text-3xl font-bold text-gray-900">{localTransactions.length}</p>
           </Card>
           <Card className="p-6">
-            <p className="text-slate-400 text-sm mb-2">Total Revenue</p>
-            <p className="text-3xl font-bold text-teal-400">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-lg bg-green-100">
+                <DollarSign size={20} className="text-green-600" />
+              </div>
+              <p className="text-gray-500 text-sm font-medium">Total Revenue</p>
+            </div>
+            <p className="text-3xl font-bold text-green-600">
               {CURRENCY} {localTransactions.reduce((sum, t) => sum + t.total, 0).toLocaleString()}
             </p>
           </Card>
           <Card className="p-6">
-            <p className="text-slate-400 text-sm mb-2">Today's Date</p>
-            <p className="text-3xl font-bold text-white">{new Date().toLocaleDateString()}</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-lg bg-amber-100">
+                <Calendar size={20} className="text-amber-600" />
+              </div>
+              <p className="text-gray-500 text-sm font-medium">Today's Date</p>
+            </div>
+            <p className="text-3xl font-bold text-gray-900">{new Date().toLocaleDateString()}</p>
           </Card>
         </div>
 
         {/* Receipts List */}
         <Card className="p-6">
-          <h3 className="text-lg font-bold text-white mb-6">Transaction Receipts</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-6">Transaction Receipts</h3>
           <Table>
             <TableHead>
               <TableRow>
@@ -60,30 +75,30 @@ export const History: React.FC = () => {
             <TableBody>
               {localTransactions.map((txn) => (
                 <TableRow key={txn.id}>
-                  <TableCell className="font-mono text-blue-600">{txn.id}</TableCell>
+                  <TableCell className="font-mono text-blue-600 font-semibold">{txn.id}</TableCell>
                   <TableCell className="text-gray-700 font-medium">{txn.cashier}</TableCell>
                   <TableCell className="text-gray-600">{txn.items.length}</TableCell>
                   <TableCell className="text-gray-900">{CURRENCY} {txn.subtotal.toLocaleString()}</TableCell>
-                  <TableCell className="text-gray-900">{CURRENCY} {txn.tax.toLocaleString()}</TableCell>
+                  <TableCell className="text-gray-600">{CURRENCY} {txn.tax.toLocaleString()}</TableCell>
                   <TableCell className="text-gray-900 font-bold">{CURRENCY} {txn.total.toLocaleString()}</TableCell>
                   <TableCell>
                     <Badge variant={txn.paymentMethod === 'cash' ? 'info' : 'success'}>
                       {txn.paymentMethod.toUpperCase()}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-gray-600 text-sm">
+                  <TableCell className="text-gray-500 text-sm">
                     {new Date(txn.timestamp).toLocaleTimeString()}
                   </TableCell>
                   <TableCell className="flex gap-2">
                     <button
                       onClick={() => handlePrint(txn.id)}
-                      className="bg-blue-100 hover:bg-blue-200 text-blue-700 p-2 rounded transition-colors"
+                      className="bg-blue-50 hover:bg-blue-100 text-blue-600 p-2 rounded-lg transition-colors duration-200"
                     >
                       <Printer size={16} />
                     </button>
                     <button
                       onClick={() => handleDownload(txn.id)}
-                      className="bg-blue-100 hover:bg-blue-200 text-blue-700 p-2 rounded transition-colors"
+                      className="bg-blue-50 hover:bg-blue-100 text-blue-600 p-2 rounded-lg transition-colors duration-200"
                     >
                       <Download size={16} />
                     </button>

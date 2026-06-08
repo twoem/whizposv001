@@ -36,25 +36,29 @@ export const Topbar: React.FC<TopbarProps> = ({ title, variant = 'outlet' }) => 
   }, []);
 
   return (
-    <div className="h-20 bg-white border-b border-gray-200 ml-64 flex items-center justify-between px-8 shadow-sm">
+    <div className="h-20 bg-white border-b border-gray-200 ml-64 flex items-center justify-between px-8 shadow-sm transition-all duration-300">
       <div>
         <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
-        <p className="text-xs text-gray-500 mt-0.5">Welcome to Whizpoint Solutions</p>
+        <p className="text-xs text-gray-600 mt-0.5 font-medium">Welcome to Whizpoint Solutions</p>
       </div>
 
       <div className="flex items-center gap-6">
         {variant === 'outlet' && (
           <>
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 border border-gray-200">
+            <div className={`flex items-center gap-2 px-4 py-2 rounded-lg border font-semibold transition-all duration-300 ${
+              isOnline
+                ? 'bg-green-50 border-green-200 text-green-900'
+                : 'bg-red-50 border-red-200 text-red-900'
+            }`}>
               {isOnline ? (
                 <>
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                  <span className="text-sm text-gray-700 font-medium">Online</span>
+                  <div className="w-2 h-2 rounded-full bg-green-600 animate-pulse"></div>
+                  <span className="text-sm">Online</span>
                 </>
               ) : (
                 <>
-                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
-                  <span className="text-sm text-gray-700 font-medium">Offline</span>
+                  <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></div>
+                  <span className="text-sm">Offline</span>
                 </>
               )}
             </div>
@@ -68,7 +72,7 @@ export const Topbar: React.FC<TopbarProps> = ({ title, variant = 'outlet' }) => 
           </>
         )}
 
-        <div className="text-sm text-gray-600 font-mono bg-gray-100 px-3 py-2 rounded-lg border border-gray-200">{time}</div>
+        <div className="text-sm text-gray-700 font-mono bg-gray-100 px-4 py-2 rounded-lg border border-gray-300 font-semibold">{time}</div>
       </div>
     </div>
   );

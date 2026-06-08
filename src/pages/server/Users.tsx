@@ -3,6 +3,7 @@ import { Card } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
+import { Input } from '../../components/ui/Input';
 import { Table, TableHead, TableBody, TableRow, TableCell } from '../../components/ui/Table';
 import { ServerLayout } from '../../layouts/ServerLayout';
 import { Plus } from 'lucide-react';
@@ -28,7 +29,7 @@ export const Users: React.FC = () => {
         </div>
 
         <Card className="p-6">
-          <h3 className="text-lg font-bold text-white mb-6">Team Members</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-6">Team Members</h3>
           <Table>
             <TableHead>
               <TableRow>
@@ -44,14 +45,14 @@ export const Users: React.FC = () => {
                 const outlet = OUTLETS.find(o => o.id === user.outletId);
                 return (
                   <TableRow key={user.id}>
-                    <TableCell className="font-semibold text-white">{user.name}</TableCell>
+                    <TableCell className="font-semibold text-gray-900">{user.name}</TableCell>
                     <TableCell>
                       <Badge variant={roleVariant[user.role]}>
                         {user.role.toUpperCase()}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-slate-400">{user.email}</TableCell>
-                    <TableCell className="text-slate-400">
+                    <TableCell className="text-gray-600">{user.email}</TableCell>
+                    <TableCell className="text-gray-600">
                       {outlet ? outlet.name : 'N/A'}
                     </TableCell>
                     <TableCell>
@@ -70,8 +71,14 @@ export const Users: React.FC = () => {
           title="Assign User to Outlet"
           size="md"
         >
-          <div className="space-y-4 p-6">
-            <p className="text-slate-300">User assignment form - mock interface</p>
+          <div className="space-y-4">
+            <Input label="User Name" placeholder="Select user" />
+            <Input label="Outlet" placeholder="Select outlet" />
+            <Input label="Role" placeholder="Select role" />
+            <div className="flex gap-4 mt-6">
+              <Button variant="ghost" onClick={() => setIsAssignModalOpen(false)}>Cancel</Button>
+              <Button onClick={() => setIsAssignModalOpen(false)}>Assign User</Button>
+            </div>
           </div>
         </Modal>
       </div>

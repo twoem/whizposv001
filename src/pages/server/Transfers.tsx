@@ -3,6 +3,7 @@ import { Card } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
+import { Input } from '../../components/ui/Input';
 import { Table, TableHead, TableBody, TableRow, TableCell } from '../../components/ui/Table';
 import { ServerLayout } from '../../layouts/ServerLayout';
 import { Plus, Package } from 'lucide-react';
@@ -68,14 +69,14 @@ export const Transfers: React.FC = () => {
             <TableBody>
               {mockTransfers.map((transfer) => (
                 <TableRow key={transfer.id}>
-                  <TableCell className="font-mono text-teal-400">{transfer.id}</TableCell>
-                  <TableCell className="text-slate-300">{transfer.from}</TableCell>
-                  <TableCell className="text-slate-300">{transfer.to}</TableCell>
-                  <TableCell className="flex items-center gap-2">
-                    <Package size={16} className="text-slate-400" />
+                  <TableCell className="font-mono text-blue-600 font-semibold">{transfer.id}</TableCell>
+                  <TableCell className="text-gray-700">{transfer.from}</TableCell>
+                  <TableCell className="text-gray-700">{transfer.to}</TableCell>
+                  <TableCell className="flex items-center gap-2 text-gray-700">
+                    <Package size={16} className="text-gray-500" />
                     {transfer.items} units
                   </TableCell>
-                  <TableCell className="text-slate-400 text-sm">{transfer.date}</TableCell>
+                  <TableCell className="text-gray-500 text-sm">{transfer.date}</TableCell>
                   <TableCell>
                     <Badge variant={statusVariant[transfer.status as keyof typeof statusVariant]}>
                       {transfer.status.replace('_', ' ').toUpperCase()}
@@ -93,8 +94,15 @@ export const Transfers: React.FC = () => {
           title="Create Stock Transfer"
           size="md"
         >
-          <div className="space-y-4 p-6">
-            <p className="text-slate-300">Transfer form mock interface</p>
+          <div className="space-y-4">
+            <Input label="From Location" placeholder="Source warehouse or outlet" />
+            <Input label="To Location" placeholder="Destination outlet" />
+            <Input label="Product" placeholder="Select product" />
+            <Input label="Quantity" placeholder="Enter quantity" type="number" />
+            <div className="flex gap-4 mt-6">
+              <Button variant="ghost" onClick={() => setIsAddModalOpen(false)}>Cancel</Button>
+              <Button onClick={() => setIsAddModalOpen(false)}>Create Transfer</Button>
+            </div>
           </div>
         </Modal>
       </div>

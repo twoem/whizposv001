@@ -30,10 +30,9 @@ export const Inventory: React.FC = () => {
   return (
     <ServerLayout title="Inventory Management">
       <div className="space-y-6">
-        {/* Header with Search and Add Button */}
         <div className="flex items-center justify-between gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-3 text-slate-400" size={20} />
+            <Search className="absolute left-3 top-3 text-gray-500" size={20} />
             <Input
               placeholder="Search by product name or SKU..."
               value={searchTerm}
@@ -52,7 +51,7 @@ export const Inventory: React.FC = () => {
           {['All', ...categories].map((cat) => (
             <button
               key={cat}
-              className="px-4 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors whitespace-nowrap"
+              className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 transition-all duration-200 whitespace-nowrap font-semibold"
             >
               {cat}
             </button>
@@ -60,17 +59,17 @@ export const Inventory: React.FC = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredProducts.map((product) => (
             <Card key={product.id} hover className="p-4">
-              <div className="mb-4 h-32 bg-slate-700/50 rounded-lg" />
-              <h3 className="font-semibold text-white mb-2">{product.name}</h3>
-              <p className="text-sm text-slate-400 mb-2">SKU: {product.sku}</p>
-              <p className="text-xl font-bold text-teal-400 mb-3">
+              <div className="mb-4 h-32 bg-gray-100 rounded-lg border border-gray-200" />
+              <h3 className="font-semibold text-gray-900 mb-2">{product.name}</h3>
+              <p className="text-sm text-gray-500 mb-2">SKU: {product.sku}</p>
+              <p className="text-xl font-bold text-blue-600 mb-3">
                 {CURRENCY} {product.price}
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 text-sm">Stock: {product.stock}</span>
+                <span className="text-gray-500 text-sm font-medium">Stock: {product.stock}</span>
                 <Badge variant={product.stock < 10 ? 'warning' : 'success'}>
                   {product.stock < 10 ? 'Low' : 'OK'}
                 </Badge>
@@ -79,7 +78,6 @@ export const Inventory: React.FC = () => {
           ))}
         </div>
 
-        {/* Add Product Modal */}
         <Modal
           isOpen={isAddModalOpen}
           onClose={() => setIsAddModalOpen(false)}

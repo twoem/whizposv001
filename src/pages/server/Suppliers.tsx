@@ -43,14 +43,14 @@ export const Suppliers: React.FC = () => {
             <TableBody>
               {SUPPLIERS.map((supplier) => (
                 <TableRow key={supplier.id}>
-                  <TableCell className="font-semibold text-white">{supplier.name}</TableCell>
+                  <TableCell className="font-semibold text-gray-900">{supplier.name}</TableCell>
                   <TableCell>
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2 text-slate-400">
+                      <div className="flex items-center gap-2 text-gray-600">
                         <Phone size={16} />
                         {supplier.phone}
                       </div>
-                      <div className="flex items-center gap-2 text-slate-400">
+                      <div className="flex items-center gap-2 text-gray-600">
                         <Mail size={16} />
                         {supplier.email}
                       </div>
@@ -59,7 +59,7 @@ export const Suppliers: React.FC = () => {
                   <TableCell>
                     <Badge variant="info">{supplier.products.length} items</Badge>
                   </TableCell>
-                  <TableCell className="text-slate-400 text-sm">
+                  <TableCell className="text-gray-500 text-sm">
                     {new Date(supplier.lastOrderDate).toLocaleDateString()}
                   </TableCell>
                   <TableCell>

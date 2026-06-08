@@ -17,7 +17,7 @@ interface TableHeadProps extends React.HTMLAttributes<HTMLTableSectionElement> {
 }
 
 export const TableHead: React.FC<TableHeadProps> = ({ children, ...props }) => (
-  <thead className="bg-gray-50 border-b border-gray-200" {...props}>
+  <thead className="bg-gray-100 border-b border-gray-300" {...props}>
     {children}
   </thead>
 );
@@ -35,7 +35,7 @@ interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
 }
 
 export const TableRow: React.FC<TableRowProps> = ({ children, className = '', ...props }) => (
-  <tr className={`border-b border-gray-200 hover:bg-blue-50 transition-colors ${className}`} {...props}>
+  <tr className={`border-b border-gray-200 hover:bg-blue-50 transition-colors duration-150 ${className}`} {...props}>
     {children}
   </tr>
 );
@@ -49,7 +49,7 @@ export const TableCell: React.FC<TableCellProps> = ({ children, header = false, 
   const Cell = header ? 'th' : 'td';
   return (
     <Cell
-      className={`px-4 py-3 text-left ${header ? 'font-semibold text-gray-700' : 'text-gray-600'} ${className}`}
+      className={`px-4 py-3.5 text-left ${header ? 'font-bold text-gray-800' : 'text-gray-700'} ${className}`}
       {...props}
     >
       {children}
