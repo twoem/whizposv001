@@ -8,6 +8,12 @@ export const PIN_MAP = {
   "1234": "cashier"
 } as const;
 
+export const PIN_NAME_MAP = {
+  "9999": "Admin User",
+  "8888": "Manager User",
+  "1234": "Cashier 1"
+} as const;
+
 export const TAX_RATE = 0.16;
 
 export const CURRENCY = "KSH";

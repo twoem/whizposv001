@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Zap, Bell, Calendar, Clock, Wifi, WifiOff } from 'lucide-react';
+import { Zap, Bell, Calendar, Clock, Wifi, WifiOff, CircleUser as UserCircle } from 'lucide-react';
 import { useSyncStore } from '../../store/syncStore';
 import { useAuthStore } from '../../store/authStore';
 
@@ -13,7 +13,7 @@ export const Topbar: React.FC<TopbarProps> = ({ title, variant = 'outlet' }) => 
   const [date, setDate] = useState('');
   const [isOnline, setIsOnline] = useState(true);
   const { queue } = useSyncStore();
-  const { role } = useAuthStore();
+  const { role, userName } = useAuthStore();
   const pendingCount = queue.filter(item => item.status === 'pending').length;
 
   useEffect(() => {
@@ -72,10 +72,18 @@ export const Topbar: React.FC<TopbarProps> = ({ title, variant = 'outlet' }) => 
           </div>
         )}
 
-        {/* Role chip */}
-        {role && (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-100 text-xs font-semibold text-blue-700 capitalize">
-            {role}
+        {/* User avatar + name */}
+        {userName && (
+          <div className="flex items-center gap-2 pl-1">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-sm">
+              <span className="text-white text-xs font-bold leading-none">
+                {userName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+              </span>
+            </div>
+            <div className="hidden sm:block">
+              <p className="text-xs font-semibold text-gray-800 leading-tight">{userName}</p>
+              <p className="text-xs text-gray-400 capitalize leading-tight">{role}</p>
+            </div>
           </div>
         )}
 

@@ -4,14 +4,14 @@ import { Shield } from 'lucide-react';
 import { Keypad } from '../../components/shared/Keypad';
 import { PinDots } from '../../components/shared/PinDots';
 import { useAuthStore } from '../../store/authStore';
-import { PIN_MAP, BUSINESS_NAME } from '../../shared/constants';
+import { PIN_MAP, PIN_NAME_MAP, BUSINESS_NAME } from '../../shared/constants';
 
 export const Login: React.FC = () => {
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const [shake, setShake] = useState(false);
   const navigate = useNavigate();
-  const { setRole, setAuthenticated, mode } = useAuthStore();
+  const { setRole, setAuthenticated, setUserName, mode } = useAuthStore();
 
   const handleInput = (key: string) => {
     if (pin.length < 4) {
@@ -49,6 +49,7 @@ export const Login: React.FC = () => {
     }
 
     setRole(role);
+    setUserName(PIN_NAME_MAP[pinToValidate as keyof typeof PIN_NAME_MAP]);
     setAuthenticated(true);
     navigate(mode === 'server' ? '/server/dashboard' : '/outlet/pos');
   };
