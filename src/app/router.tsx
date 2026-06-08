@@ -10,6 +10,7 @@ import { Outlets } from '../pages/server/Outlets';
 import { Users } from '../pages/server/Users';
 import { Reports } from '../pages/server/Reports';
 import { Expenses as ServerExpenses } from '../pages/server/Expenses';
+import { Settings as ServerSettings } from '../pages/server/Settings';
 
 // Outlet Pages
 import { POS } from '../pages/outlet/POS';
@@ -18,6 +19,7 @@ import { History } from '../pages/outlet/History';
 import { Inventory as OutletInventory } from '../pages/outlet/Inventory';
 import { Expenses as OutletExpenses } from '../pages/outlet/Expenses';
 import { Sync } from '../pages/outlet/Sync';
+import { Settings as OutletSettings } from '../pages/outlet/Settings';
 
 import { useAuthStore } from '../store/authStore';
 
@@ -50,6 +52,7 @@ export const Router = () => {
           <Route path="/server/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
           <Route path="/server/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
           <Route path="/server/expenses" element={<ProtectedRoute><ServerExpenses /></ProtectedRoute>} />
+          <Route path="/server/settings" element={<ProtectedRoute><ServerSettings /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/server/dashboard" />} />
         </>
       ) : (
@@ -60,6 +63,7 @@ export const Router = () => {
           <Route path="/outlet/inventory" element={<ProtectedRoute><OutletInventory /></ProtectedRoute>} />
           <Route path="/outlet/expenses" element={<ProtectedRoute><OutletExpenses /></ProtectedRoute>} />
           <Route path="/outlet/sync" element={<ProtectedRoute><Sync /></ProtectedRoute>} />
+          <Route path="/outlet/settings" element={<ProtectedRoute><OutletSettings /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/outlet/pos" />} />
         </>
       )}

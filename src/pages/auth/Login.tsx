@@ -84,19 +84,19 @@ export const Login: React.FC = () => {
         backgroundImage: 'url("https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1600")',
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-800/30 to-blue-900/40" />
 
       <div className="relative z-10 grid grid-cols-2 gap-16 max-w-6xl px-8">
         {/* Left Panel */}
         <div className="flex flex-col justify-center">
           <div className="mb-8">
-            <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-teal-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
               <Shield size={40} className="text-white" />
             </div>
             <h1 className="text-5xl font-bold text-white mb-3 leading-tight">
               {BUSINESS_NAME}
             </h1>
-            <p className="text-2xl text-teal-300 font-light">Your Daily Dose, Secured</p>
+            <p className="text-2xl text-blue-100 font-light">Your Daily Dose, Secured</p>
           </div>
 
           <PinDots length={pin.length} maxLength={4} />

@@ -28,7 +28,7 @@ export const Keypad: React.FC<KeypadProps> = ({ onInput, onDelete, onSubmit, dis
   };
 
   return (
-    <div className={`grid grid-cols-3 gap-3 p-6 bg-slate-800/60 border border-slate-700 rounded-2xl backdrop-blur-sm ${shake ? 'animate-shake' : ''}`}>
+    <div className={`grid grid-cols-3 gap-3 p-6 bg-white border border-gray-200 rounded-2xl shadow-lg ${shake ? 'animate-shake' : ''}`}>
       {keys.map((row, rowIdx) => (
         <React.Fragment key={rowIdx}>
           {row.map((key) => (
@@ -40,8 +40,8 @@ export const Keypad: React.FC<KeypadProps> = ({ onInput, onDelete, onSubmit, dis
                 py-4 rounded-xl font-bold text-lg transition-all duration-150
                 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
                 ${key === 'clear' || key === 'backspace'
-                  ? 'col-span-1 bg-red-600/80 hover:bg-red-600 text-white'
-                  : 'bg-slate-700/60 hover:bg-slate-700 text-white border border-slate-600'
+                  ? 'col-span-1 bg-red-500 hover:bg-red-600 text-white'
+                  : 'bg-gray-100 hover:bg-gray-200 text-gray-900 border border-gray-300'
                 }
               `}
             >
@@ -53,7 +53,7 @@ export const Keypad: React.FC<KeypadProps> = ({ onInput, onDelete, onSubmit, dis
       <button
         onClick={onSubmit}
         disabled={disabled}
-        className="col-span-3 py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white transition-all duration-150 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="col-span-3 py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white transition-all duration-150 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         VERIFY ACCESS
       </button>

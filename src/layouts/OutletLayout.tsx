@@ -9,7 +9,7 @@ interface OutletLayoutProps {
 
 export const OutletLayout: React.FC<OutletLayoutProps> = ({ children, title = 'Outlet' }) => {
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-gray-50">
       <Sidebar variant="outlet" />
       <div className="flex-1 ml-64 flex flex-col overflow-hidden">
         <Topbar title={title} variant="outlet" />

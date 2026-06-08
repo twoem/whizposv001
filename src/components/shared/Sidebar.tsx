@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LogOut, BarChart3, Package, Users, Truck, Store, FileText, Zap, DollarSign, Code } from 'lucide-react';
+import { LogOut, BarChart3, Package, Users, Truck, Store, FileText, Zap, DollarSign, Code, Settings } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { BUSINESS_NAME } from '../../shared/constants';
 
@@ -17,6 +17,7 @@ const SERVER_MENU = [
   { label: 'Team', icon: Users, href: '/server/users' },
   { label: 'Reports', icon: FileText, href: '/server/reports' },
   { label: 'Expenses', icon: DollarSign, href: '/server/expenses' },
+  { label: 'Settings', icon: Settings, href: '/server/settings' },
 ];
 
 const OUTLET_MENU = [
@@ -26,6 +27,7 @@ const OUTLET_MENU = [
   { label: 'Inventory', icon: Package, href: '/outlet/inventory' },
   { label: 'Expenses', icon: DollarSign, href: '/outlet/expenses' },
   { label: 'Sync', icon: Zap, href: '/outlet/sync' },
+  { label: 'Settings', icon: Settings, href: '/outlet/settings' },
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({ variant }) => {
@@ -39,10 +41,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ variant }) => {
   };
 
   return (
-    <div className="w-64 bg-slate-800 border-r border-slate-700 h-screen fixed left-0 top-0 flex flex-col">
-      <div className="p-6 border-b border-slate-700">
-        <h1 className="text-2xl font-bold text-white truncate">{BUSINESS_NAME}</h1>
-        <p className="text-slate-400 text-xs mt-1">{variant === 'server' ? 'Admin Dashboard' : 'Point of Sale'}</p>
+    <div className="w-64 bg-gradient-to-b from-gray-50 to-gray-100 border-r border-gray-200 h-screen fixed left-0 top-0 flex flex-col">
+      <div className="p-6 border-b border-gray-200">
+        <h1 className="text-2xl font-bold text-gray-900 truncate">{BUSINESS_NAME}</h1>
+        <p className="text-gray-500 text-xs mt-1">{variant === 'server' ? 'Admin Dashboard' : 'Point of Sale'}</p>
       </div>
 
       <nav className="flex-1 overflow-y-auto p-4 space-y-2">
@@ -55,8 +57,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ variant }) => {
               to={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                 isActive
-                  ? 'bg-teal-600/30 text-teal-300 border border-teal-500/30'
-                  : 'text-slate-400 hover:bg-slate-700/50 hover:text-slate-200'
+                  ? 'bg-blue-100 text-blue-700 border border-blue-300'
+                  : 'text-gray-600 hover:bg-gray-200 hover:text-gray-900'
               }`}
             >
               <Icon size={20} />
@@ -66,10 +68,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ variant }) => {
         })}
       </nav>
 
-      <div className="p-4 border-t border-slate-700">
+      <div className="p-4 border-t border-gray-200">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-red-600/10 hover:bg-red-600/20 text-red-400 transition-colors duration-200"
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-colors duration-200"
         >
           <LogOut size={20} />
           <span className="font-medium">Logout</span>

@@ -1,5 +1,7 @@
 export const BUSINESS_NAME = "WHIZPOINT SOLUTIONS";
 
+export const THEME = "light";
+
 export const PIN_MAP = {
   "9999": "admin",
   "8888": "manager",

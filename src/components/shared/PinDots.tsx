@@ -13,8 +13,8 @@ export const PinDots: React.FC<PinDotsProps> = ({ length, maxLength = 4 }) => {
           key={idx}
           className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
             idx < length
-              ? 'bg-teal-500 border-teal-400 scale-110'
-              : 'bg-transparent border-slate-500'
+              ? 'bg-blue-500 border-blue-400 scale-110'
+              : 'bg-transparent border-gray-300'
           }`}
         />
       ))}

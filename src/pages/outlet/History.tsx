@@ -47,6 +47,7 @@ export const History: React.FC = () => {
             <TableHead>
               <TableRow>
                 <TableCell header>Receipt ID</TableCell>
+                <TableCell header>Cashier</TableCell>
                 <TableCell header>Items</TableCell>
                 <TableCell header>Subtotal</TableCell>
                 <TableCell header>Tax</TableCell>
@@ -59,29 +60,30 @@ export const History: React.FC = () => {
             <TableBody>
               {localTransactions.map((txn) => (
                 <TableRow key={txn.id}>
-                  <TableCell className="font-mono text-teal-400">{txn.id}</TableCell>
-                  <TableCell className="text-slate-400">{txn.items.length}</TableCell>
-                  <TableCell className="text-white">{CURRENCY} {txn.subtotal.toLocaleString()}</TableCell>
-                  <TableCell className="text-white">{CURRENCY} {txn.tax.toLocaleString()}</TableCell>
-                  <TableCell className="text-white font-bold">{CURRENCY} {txn.total.toLocaleString()}</TableCell>
+                  <TableCell className="font-mono text-blue-600">{txn.id}</TableCell>
+                  <TableCell className="text-gray-700 font-medium">{txn.cashier}</TableCell>
+                  <TableCell className="text-gray-600">{txn.items.length}</TableCell>
+                  <TableCell className="text-gray-900">{CURRENCY} {txn.subtotal.toLocaleString()}</TableCell>
+                  <TableCell className="text-gray-900">{CURRENCY} {txn.tax.toLocaleString()}</TableCell>
+                  <TableCell className="text-gray-900 font-bold">{CURRENCY} {txn.total.toLocaleString()}</TableCell>
                   <TableCell>
                     <Badge variant={txn.paymentMethod === 'cash' ? 'info' : 'success'}>
                       {txn.paymentMethod.toUpperCase()}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-slate-400 text-sm">
+                  <TableCell className="text-gray-600 text-sm">
                     {new Date(txn.timestamp).toLocaleTimeString()}
                   </TableCell>
                   <TableCell className="flex gap-2">
                     <button
                       onClick={() => handlePrint(txn.id)}
-                      className="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded transition-colors"
+                      className="bg-blue-100 hover:bg-blue-200 text-blue-700 p-2 rounded transition-colors"
                     >
                       <Printer size={16} />
                     </button>
                     <button
                       onClick={() => handleDownload(txn.id)}
-                      className="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded transition-colors"
+                      className="bg-blue-100 hover:bg-blue-200 text-blue-700 p-2 rounded transition-colors"
                     >
                       <Download size={16} />
                     </button>

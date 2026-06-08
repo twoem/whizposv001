@@ -12,9 +12,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseClasses = 'font-medium rounded-lg transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variantClasses = {
-      primary: 'bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white shadow-lg hover:shadow-xl',
-      secondary: 'bg-slate-700 hover:bg-slate-800 text-white border border-slate-600',
-      ghost: 'bg-transparent hover:bg-slate-700/50 text-slate-200 border border-slate-600',
+      primary: 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md hover:shadow-lg',
+      secondary: 'bg-gray-100 hover:bg-gray-200 text-gray-900 border border-gray-300',
+      ghost: 'bg-transparent hover:bg-gray-100 text-gray-700 border border-gray-300',
       danger: 'bg-red-600 hover:bg-red-700 text-white'
     };
 
